@@ -10,6 +10,7 @@ const bodyParser = require('koa-bodyparser')
 // 订单路由
 const orderApi = require('./orders.router')
 const contractApi = require('./contract.router')
+const initApi = require('./init.router')
 
 const app = new koa()
 const router = new Router()
@@ -17,6 +18,8 @@ const router = new Router()
 app.use(bodyParser())
 app.use(cors())
 //  ****************  装载所有子路由
+// 初始化数据
+router.use('/index', initApi.routes(), initApi.allowedMethods())
 // 订单
 router.use('/order', orderApi.routes(), orderApi.allowedMethods())
 // 合同

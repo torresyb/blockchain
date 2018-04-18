@@ -10,7 +10,6 @@ import Detail from '../components/detail/index.vue'
 export default [
   {
     path: '/',
-    name: 'home',
     component: Home,
     children: [{
       path: '/order/:type',
@@ -28,7 +27,7 @@ export default [
       name: 'detail',
       meta: {keepAlive: true}
     },{
-      path: '*',
+      path: '/',
       redirect: '/order/0'
     }]
   },

@@ -2,7 +2,7 @@
   <div id="submenu">
     <ul>
       <li>
-        <a href="#/detail/order/1">
+        <a href="#/detail/order/1" :class="$route.path === '/detail/order/1' ? 'active' : ''">
           <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
           <el-row type="flex" class="item-flex" justify="space-between">
             <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
@@ -15,7 +15,7 @@
         </a>
       </li>
       <li>
-        <a href="#/detail/order/2">
+        <a href="#/detail/order/2" :class="$route.path === '/detail/order/2' ? 'active' : ''">
           <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
           <el-row type="flex" class="item-flex" justify="space-between">
             <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
@@ -109,6 +109,9 @@
     display: block;
     padding: 20px;
     border-bottom: 1px solid #DDDDDD;
+  }
+  #submenu a.active{
+    background-color: #eef2fd;
   }
   .item-gray .grid-content{
     color: #969696;

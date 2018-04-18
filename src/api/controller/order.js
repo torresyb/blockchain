@@ -6,7 +6,11 @@
 import getUrl from '../env'
 import http from '../http'
 
-export function getOrderlist(url){
-  let _url = getUrl(url)
+/**
+ * 获取订单列表（已确认和未确认）
+ * @returns {*}
+ */
+export function getOrderlist(){
+  let _url = getUrl('/order/getlist')
   return http.get(_url)
 }

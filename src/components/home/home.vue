@@ -57,6 +57,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import HeaderComponent from '../header/index.vue'
   import NavigatorComponent from '../navigator/index.vue'
   import SubmenuComponent from '../home/submenu.vue'
@@ -120,7 +121,11 @@
         }
       }
     },
+    mounted() {
+      this.getNumberHandle()
+    },
     methods: {
+      ...mapActions(['getNumberHandle']),
       // 弹框显隐
       dialogContractHandle() {
         this.dialogFormVisible = !this.dialogFormVisible
