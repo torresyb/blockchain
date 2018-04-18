@@ -14,6 +14,11 @@
         msg: ' :) 选择要查看的项目(:'
       }
     },
+    mounted() {
+      this.getOrderlist().then(rst => {
+        console.log('rst:', rst)
+      })
+    }
   }
 </script>
 
