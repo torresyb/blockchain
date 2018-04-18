@@ -13,8 +13,8 @@ let member_user = null
 let store_path = path.join(__dirname, 'hfc-key-store')
 let tx_id = null
 
-function httpRequest (params) {
-  Fabric_Client.newDefaultKeyValueStore({ path: store_path}).then(state_store => {
+function httpRequest (params={}) {
+  return Fabric_Client.newDefaultKeyValueStore({ path: store_path}).then(state_store => {
     fabric_client.setStateStore(state_store)
     let crypto_suite = Fabric_Client.newCryptoSuite()
     // use the same location for the state store (where the users' certificate are kept)

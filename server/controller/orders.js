@@ -1,5 +1,6 @@
 
 let httpRequest = require('../http')
+// console.log('httpRequest:', httpRequest)
 
 const getOrderList = async(ctx, next) => {
 // create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting

@@ -15,7 +15,7 @@
       }
     },
     mounted() {
-      this.getOrderlist().then(rst => {
+      getOrderlist().then(rst => {
         console.log('rst:', rst)
       })
     }

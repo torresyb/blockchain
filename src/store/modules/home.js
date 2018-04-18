@@ -24,7 +24,7 @@ const mutations = {
 
 //action
 const actions = {
-  getNumberHandle({commit}, params) {
+  getNumberHandle({commit}) {
     initGetNum().then(rst => {
       commit(GET_NUMBERS, rst.data.resultList)
     })
