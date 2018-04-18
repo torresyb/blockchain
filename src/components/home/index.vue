@@ -8,13 +8,14 @@
   import {getOrderlist} from '../../api/controller/order'
 
   export default {
+    name: 'index',
     data () {
       return {
         msg: ' :) 选择要查看的项目(:'
       }
     },
     mounted() {
-      getOrderlist('/order/getlist').then(rst=>{
+      this.getOrderlist().then(rst => {
         console.log('rst:', rst)
       })
     }
