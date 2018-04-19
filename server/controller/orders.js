@@ -204,16 +204,14 @@ const confirmOrder = async(ctx, next) => {
 const modifyOrder = async(ctx, next) => {
 
     // console.log(ctx.request.body)
-    let {contractCode,name, spec,price,amount,total} = ctx.request.body
-    //加"c"
-    contractCode = 'c'+contractCode;
+    let {id,name, spec,price,amount,total} = ctx.request.body
 
     // create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting
     await httpInvokeRequest({
         //targets : --- letting this default to the peers assigned to the channel
         chaincodeId: 'baoli',
         fcn: 'modifyOrder',
-        args: [contractCode,name, spec,price,amount,total],
+        args: [id,name, spec,price,amount,total],
         chainId: 'mychannel',
         txId: ''
     }).then((results) => {
