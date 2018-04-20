@@ -103,6 +103,7 @@
     margin-top: 10px;
   }
 .item-flex .grid-content{
+  white-space: nowrap;
   font-size: 12px;
 }
   #submenu a{
