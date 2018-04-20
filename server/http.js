@@ -16,6 +16,7 @@ let store_path = path.join(__dirname, 'hfc-key-store')
 var tx_id = null
 
 function httpQueryRequest (params) {
+    console.log(params)
   return Fabric_Client.newDefaultKeyValueStore({ path: store_path}).then(state_store => {
     fabric_client.setStateStore(state_store)
     let crypto_suite = Fabric_Client.newCryptoSuite()
