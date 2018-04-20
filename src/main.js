@@ -9,10 +9,21 @@ import router from './router'
 import store from './store/index'
 import ElementUI from 'element-ui'
 import NProgress from 'vue-nprogress'
+import Moment from 'moment'
+import * as filters from './filters'
+import * as storage from './storage/index'
+
+global.moment = Moment
+global.storage = storage // localstorage
 
 // 注册依赖
 Vue.use(ElementUI)
 Vue.use(NProgress)
+
+// 过滤器
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 const nprogress = new NProgress({parent: '.nprogress-container'})
 

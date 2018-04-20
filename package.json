@@ -24,6 +24,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.5",
+    "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
     "vue-nprogress": "^0.1.5",
     "vue-router": "^3.0.1",
