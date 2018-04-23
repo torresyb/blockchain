@@ -1,64 +1,108 @@
 <template>
-  <div class="detailWrap">
+  <div class="detailWrap" v-loading.fullscreen.lock="fullscreenLoading">
     <el-row type="flex" class="detialTitle" justify="space-between" align="middle">
       <el-col :span="14">
-        <div class="title">中铁三局集团大瑞铁路物资采购合同书</div>
+        <div class="title">{{detailObj.name || contractObj.name}}</div>
       </el-col>
       <el-col :span="5"><span>2018-03-22 12:32</span></el-col>
-      <el-col :span="5"><el-button size="mini" type="primary" @click="addOrderHandle">新建订单</el-button></el-col>
+      <el-col :span="5">
+        <el-button v-if="contractObj.state == 2 &&  $route.params.oc == 'c'" size="mini" type="primary" @click="addOrderHandle">新建订单</el-button>
+        <el-button v-if="detailObj.state == 1 && $route.params.oc == 'o'" size="mini" type="primary" @click = "confirmOrderHandle">确认订单</el-button>
+        <el-button v-if="contractObj.state == 1 && $route.params.oc == 'c'" size="mini" type="primary" @click = "confirmContractHandle">确认合同</el-button>
+      </el-col>
     </el-row>
     <div class="detailContent">
-      <el-row type="flex" class="detialNumber" justify="space-between" :gutter="20">
-        <el-col :span="12">项目编号：SJDRWZ-2017-1</el-col>
-        <el-col :span="12">招标编号：SJDRWZ-2017-1</el-col>
-      </el-row>
-      <div class="detialText">
-        <el-row type="flex" justify="space-between">
-          <el-col :span="12">项目名称：中铁三局集团大瑞铁路工程物资采购合同书</el-col>
+      <div v-if="$route.params.oc == 'o'">
+        <el-row type="flex" class="detialNumber" justify="space-between" :gutter="20">
+          <el-col :span="12">订单编号：{{detailObj.OrderId}}</el-col>
+          <el-col :span="12">项目编号：{{detailObj.contractCode}}</el-col>
         </el-row>
-        <el-row type="flex" justify="space-between" :gutter="20">
-          <el-col :span="12">甲方信息：中铁三局集团大瑞铁路工程项目部经理</el-col>
-          <el-col :span="12">乙方信息：云南汇百金经贸有限公司</el-col>
+        <div class="detialText">
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">品名：{{detailObj.name}}</el-col>
+            <el-col :span="12">规格：{{detailObj.spec}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">单价：{{detailObj.price}}</el-col>
+            <el-col :span="12">数量：{{detailObj.amount}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between">
+            <el-col :span="12">总计：{{detailObj.total}}</el-col>
+          </el-row>
+          <hr>
+        </div>
+      </div>
+      <div>
+        <div class="detialText">
+          <el-row type="flex" justify="space-between">
+            <el-col :span="12">项目名称：{{contractObj.name}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">甲方信息：{{contractObj.fpinfo}}</el-col>
+            <el-col :span="12">乙方信息：{{contractObj.spinfo}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">项目时间：{{contractObj.time}}</el-col>
+            <el-col :span="12">项目金额：{{contractObj.money}}元</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">订货方式：{{contractObj.ordermode}}</el-col>
+            <el-col :span="12">交货地点及验收方式：</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">结算方式：</el-col>
+            <el-col :span="12">结算时间：</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">付款方式：</el-col>
+            <el-col :span="12">账户信息：</el-col>
+          </el-row>
+        </div>
+      </div>
+      <h3 v-if="orderLists.length>0" class="title">所有订单列表</h3>
+      <div v-if="orderLists.length>0" class="orderList" v-for="item in orderLists" :key="item.OrderId">
+        <el-row type="flex" class="" justify="space-between" :gutter="20">
+          <el-col :span="12">订单编号：{{item.OrderId}}</el-col>
+          <el-col :span="12">项目编号：{{item.contractCode}}</el-col>
         </el-row>
-        <el-row type="flex" justify="space-between" :gutter="20">
-          <el-col :span="12">项目时间：2017年2月15日至双方责任和义务履行完毕之日</el-col>
-          <el-col :span="12">项目金额：28.143.500元</el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" :gutter="20">
-          <el-col :span="12">订货方式：零工</el-col>
-          <el-col :span="12">交货地点及验收方式：上海</el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" :gutter="20">
-          <el-col :span="12">结算方式：网付</el-col>
-          <el-col :span="12">结算时间：2018-12-22</el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" :gutter="20">
-          <el-col :span="12">付款方式：银行卡</el-col>
-          <el-col :span="12">账户信息：2323232988398989</el-col>
-        </el-row>
+        <div class="detialText">
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">品名：{{item.name}}</el-col>
+            <el-col :span="12">规格：{{item.spec}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between" :gutter="20">
+            <el-col :span="12">单价：{{item.price}}</el-col>
+            <el-col :span="12">数量：{{item.amount}}</el-col>
+          </el-row>
+          <el-row type="flex" justify="space-between">
+            <el-col :span="12">总计：{{item.total}}</el-col>
+          </el-row>
+          <hr>
+        </div>
       </div>
     </div>
+
     <!--新建订单-->
-    <el-dialog title="新建订单" :visible.sync="dialogFormVisible" width="40%">
+    <el-dialog title="新建订单" :visible.sync="dialogFormVisible" width="40%" :before-close="closeHandle">
       <el-form :model="form" :rules="rules" ref="orderForm" label-width="120px">
-        <el-form-item label="品名" prop="proName">
-          <el-input v-model="form.proName" auto-complete="off"></el-input>
+        <el-form-item label="品名" prop="name">
+          <el-input v-model="form.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="规格" prop="proSize">
-          <el-input v-model="form.proSize"></el-input>
+        <el-form-item label="规格" prop="spec">
+          <el-input v-model="form.spec"></el-input>
         </el-form-item>
-        <el-form-item label="单价" prop="proMoney">
-          <el-input v-model="form.proMoney" type="number" style="width: 218px;"></el-input>
+        <el-form-item label="单价" prop="price">
+          <el-input v-model="form.price" type="number" style="width: 218px;"></el-input>
         </el-form-item>
-        <el-form-item label="数量" prop="proNum">
-          <el-input v-model="form.proNum" type="number" style="width: 218px;"></el-input>
+        <el-form-item label="数量" prop="amount">
+          <el-input v-model="form.amount" type="number" style="width: 218px;"></el-input>
         </el-form-item>
-        <el-form-item label="合计" prop="proTotal">
-          <el-input v-model="form.proTotal" type="number" style="width: 218px;"></el-input>
+        <el-form-item label="合计" prop="total">
+          <el-input v-model="form.total" disabled type="number" style="width: 218px;"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="closeRstHandle">取 消</el-button>
         <el-button type="primary" @click="orderSubmitHandle">确 定</el-button>
       </div>
     </el-dialog>
@@ -66,56 +110,152 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import {getOrderDetail, confirmOrder, createOrder} from '../../api/controller/order'
+  import {getContractDetail, confirmContract} from '../../api/controller/contract'
   export default {
     data() {
       return {
+        fullscreenLoading: false,
         dialogFormVisible: false,
+        detailObj: {},
+        orderLists: [],
+        contractObj: {},
         form: {
-          proName: '',
-          proSize: '',
-          proMoney: '',
-          proNum: '',
-          proTotal: ''
+          name: '',
+          spec: '',
+          price: '',
+          amount: '',
+          total: '0'
         },
         rules: {
-          proName: [{
+          name: [{
             required: true,message: '请填写品名', trigger: 'blur'
           },{
             max:50, message: '品名长度不得超过50字符', trigger: 'blur'
           }],
-          proSize: [{
+          spec: [{
             required: true,message: '请填写规格', trigger: 'blur'
           },{
             max:50, message: '规格长度不得超过50字符', trigger: 'blur'
           }],
-          proMoney: [{
+          price: [{
             required: true,message: '请填写金额', trigger: 'blur'
           }],
-          proNum: [{
+          amount: [{
             required: true,message: '请填写数量', trigger: 'blur'
           }],
-          proTotal: [{
+          total: [{
             required: true,message: '请填写合计', trigger: 'blur'
           }],
         }
       }
     },
+//    beforeRouteLeave(to, from, next) {
+//      this.detailObj = {}
+//      this.orderLists = []
+//      this.contractObj = {}
+//      next()
+//    },
+    watch: {
+      'form.amount'(val) {
+        this.form.total = val * this.form.price+''
+      },
+      'form.price'(val) {
+        this.form.total = val * this.form.amount+''
+      }
+    },
+    created() {
+      if(this.$route.params.oc == 'o'){
+        // 查询订单详情
+        getOrderDetail({id:this.$route.params.id}).then(rst =>{
+          this.detailObj = JSON.parse(rst.data.data)
+          return this.detailObj.contractCode
+        }).then(code => {
+          return getContractDetail({code: code.substr(1)})
+        }).then(rst => {
+          this.contractObj = JSON.parse(rst.data.data)
+        })
+      }else{
+        this.lookContractDetailHandle()
+      }
+    },
     methods: {
+      ...mapActions(['getNumberHandle', 'getListObjHandle']),
+      lookContractDetailHandle() {
+        this.orderLists = []
+        // 查询合同详情
+        getContractDetail({code:this.$route.params.id.substr(1)}).then(rst =>{
+          this.contractObj = JSON.parse(rst.data.data)
+          return this.contractObj
+        }).then(obj => {
+          Object.keys(obj.orders).map(item => {
+            getOrderDetail({id: item}).then(rst => {
+              this.orderLists.push(JSON.parse(rst.data.data))
+            })
+          })
+        })
+      },
       // 新建工单
       addOrderHandle() {
         this.dialogFormVisible = !this.dialogFormVisible
       },
-      // 工单提交
+      // 提交订单
       orderSubmitHandle() {
         this.$refs['orderForm'].validate((valid) => {
           this.dialogFormVisible = false
           if (valid) {
-            console.log('submit!');
+            this.fullscreenLoading = true
+            let data = Object.assign({}, this.form, {contractCode: this.contractObj.code.substr(1)})
+            createOrder(data).then(rst => {
+              if(rst.data.code === '0000') {
+                this.getNumberHandle()
+                this.$message.success("新建订单成功！")
+                this.$refs['orderForm'].resetFields()
+                this.lookContractDetailHandle()
+                this.fullscreenLoading = false
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;
           }
         })
+      },
+      // 确认订单
+      confirmOrderHandle() {
+        this.fullscreenLoading = true
+        confirmOrder({id: this.$route.params.id}).then(rst => {
+          if(rst.data.code === '0000') {
+            this.fullscreenLoading = false
+            this.getNumberHandle()
+            this.getListObjHandle({type: 'o', state: 1})
+            this.$message.success('确认订单操作成功！')
+            this.$router.push({name: 'order', params: {oc: 'o', type: '0'}})
+          }
+        })
+      },
+      // 确认合同
+      confirmContractHandle() {
+        this.fullscreenLoading = true
+        confirmContract({code: this.$route.params.id.substr(1)}).then(rst => {
+          if(rst.data.code === '0000'){
+            this.fullscreenLoading = false
+            this.getNumberHandle()
+            this.getListObjHandle({type:'c', state: 1})
+            this.$message.success('确认合同操作成功！')
+            this.$router.push({name:'contract',params:{oc:'c', type:'0'}})
+          }
+        })
+      },
+      // 关闭新建订单
+      closeHandle(done) {
+        this.$refs['orderForm'].resetFields()
+        done()
+      },
+      closeRstHandle() {
+        this.dialogFormVisible = false
+        this.$refs['orderForm'].resetFields()
       }
     }
   }
@@ -143,5 +283,20 @@
     line-height: 24px;
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+  hr{
+    border-color: #ddd;
+    border-top: 0;
+  }
+  .orderList{
+    border-top: 1px solid #ddd;
+    padding-top:15px;
+  }
+  h3.title{
+    font-size: 16px;
+    line-height: 30px;
+    padding-top: 50px;
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
   }
 </style>

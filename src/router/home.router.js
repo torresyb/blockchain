@@ -12,23 +12,23 @@ export default [
     path: '/',
     component: Home,
     children: [{
-      path: '/order/:type',
+      path: '/order/:oc/:type',
       component: Index,
       name: 'order',
       meta: {keepAlive: true}
     },{
-      path: '/contract/:type',
+      path: '/contract/:oc/:type',
       component: Index,
       name: 'contract',
       meta: {keepAlive: true}
     },{
-      path: '/detail/:type/:id',
+      path: '/detail/:oc/:type/:id',
       component: Detail,
       name: 'detail',
       meta: {keepAlive: true}
     },{
       path: '/',
-      redirect: '/order/0'
+      redirect: '/order/o/0'
     }]
   },
 ]

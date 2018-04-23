@@ -4,32 +4,33 @@
     <div id="sideMenus">
       <el-menu
         :router=true
-        default-active="/order/0"
+        :default-active="$route.path.indexOf('detail')>-1 ? ($route.params.oc == 'o' ? '/order' : '/contract')+'/'+$route.params.oc+'/'+$route.params.type : $route.path"
+        :default-openeds="['/order/o/0', '/contract/c/0']"
         class="el-menu-vertical-demo"
         background-color="#292d30"
         text-color="#7fa0a9"
         active-text-color="#7fa0a9">
-        <el-submenu index="/order">
+        <el-submenu index="/order/o/0">
           <template slot="title">
             <i class="el-icon-menu"></i>
             <span>订单列表</span>
           </template>
-          <el-menu-item index="/order/0">
+          <el-menu-item index="/order/o/0">
             <span slot="title">未确认订单 <i class="badge">{{getNums['o1']}}</i></span>
           </el-menu-item>
-          <el-menu-item index="/order/1">
+          <el-menu-item index="/order/o/1">
             <span slot="title">已确认订单 <i class="badge">{{getNums['o2']}}</i></span>
           </el-menu-item>
         </el-submenu>
-        <el-submenu index="/contract">
+        <el-submenu index="/contract/c/0">
           <template slot="title">
             <i class="el-icon-document"></i>
             <span>合同列表</span>
           </template>
-          <el-menu-item index="/contract/0">
+          <el-menu-item index="/contract/c/0">
             <span slot="title">未确认合同 <i class="badge">{{getNums['c1']}}</i></span>
           </el-menu-item>
-          <el-menu-item index="/contract/1">
+          <el-menu-item index="/contract/c/1">
             <span slot="title">已确认合同 <i class="badge">{{getNums['c2']}}</i></span>
           </el-menu-item>
         </el-submenu>
