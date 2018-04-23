@@ -15,10 +15,10 @@
             <span>订单列表</span>
           </template>
           <el-menu-item index="/order/0">
-            <span slot="title">未确认订单 <i class="badge">{{getOrders[0]}}</i></span>
+            <span slot="title">未确认订单 <i class="badge">{{getNums['o1']}}</i></span>
           </el-menu-item>
           <el-menu-item index="/order/1">
-            <span slot="title">已确认订单 <i class="badge">{{getOrders[1]}}</i></span>
+            <span slot="title">已确认订单 <i class="badge">{{getNums['o2']}}</i></span>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="/contract">
@@ -27,10 +27,10 @@
             <span>合同列表</span>
           </template>
           <el-menu-item index="/contract/0">
-            <span slot="title">未确认合同 <i class="badge">{{getContracts[0]}}</i></span>
+            <span slot="title">未确认合同 <i class="badge">{{getNums['c1']}}</i></span>
           </el-menu-item>
           <el-menu-item index="/contract/1">
-            <span slot="title">已确认合同 <i class="badge">{{getContracts[1]}}</i></span>
+            <span slot="title">已确认合同 <i class="badge">{{getNums['c2']}}</i></span>
           </el-menu-item>
         </el-submenu>
       </el-menu>
@@ -48,8 +48,8 @@
       }
     },
     computed: {
-      ...mapGetters(['getOrders', 'getContracts'])
-    }
+      ...mapGetters(['getNums'])
+    },
   }
 </script>
 

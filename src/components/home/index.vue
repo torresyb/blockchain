@@ -15,9 +15,9 @@
       }
     },
     mounted() {
-      getOrderlist().then(rst => {
-        console.log('rst:', rst)
-      })
+      // getOrderlist().then(rst => {
+      //   console.log('rst:', rst)
+      // })
     }
   }
 </script>

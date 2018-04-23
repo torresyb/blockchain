@@ -15,7 +15,7 @@ axios.interceptors.response.use(function (rst) {
 });
 
 function errorTipHandle (rst) {
-  if(rst.data.code != '0000'){
+  if(rst.data && rst.data.code != '0000'){
     window.vm.$message.error(rst.data.msg)
     throw new Error()
   }

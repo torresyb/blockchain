@@ -3,22 +3,26 @@
  * @date 2018/4/18
  * @Description: 获取未确认/已确认订单数  未确认/已确认合同数
  */
-import {initGetNum} from '../../api/controller/init'
+import {initGetNum, getListObj} from '../../api/controller/init'
 
 // mutationsType
 const GET_NUMBERS = 'GET_NUMBERS'
+const GET_LIST = 'GET_LIST'
 
 //state
 const state = {
-  orderNum: [],
-  contractNum: []
+  initNum: {},
+  listObj: {}
 }
 
 // mutations
 const mutations = {
   [GET_NUMBERS] (state, params) {
-    state.orderNum = params.order
-    state.contractNum = params.contract
+    state.initNum = params.data
+  },
+  [GET_LIST] (state, params) {
+    state.listObj = JSON.parse(params.data)
+    console.log(state.listObj)
   }
 }
 
@@ -26,17 +30,22 @@ const mutations = {
 const actions = {
   getNumberHandle({commit}) {
     initGetNum().then(rst => {
-      commit(GET_NUMBERS, rst.data.resultList)
+      commit(GET_NUMBERS, rst.data)
+    })
+  },
+  getListObjHandle({commit}, params) {
+    getListObj(params).then(rst => {
+      commit(GET_LIST, rst.data)
     })
   }
 }
 
 const getters = {
-  getOrders(state) {
-    return state.orderNum
+  getNums(state) {
+    return state.initNum
   },
-  getContracts(state) {
-    return state.contractNum
+  getLists(state) {
+    return state.listObj
   }
 }
 

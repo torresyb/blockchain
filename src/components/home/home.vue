@@ -121,11 +121,20 @@
         }
       }
     },
+    beforeRouteUpdate(to, from, next) {
+      if(to.name === 'contract' || to.name === 'order'){
+        this.getNumberHandle()
+        this.getListObjHandle({type:to.name === 'order' ? 'o' : 'c', state: Number(to.params.type)+1})
+      }
+    },
     mounted() {
       this.getNumberHandle()
+      let params = {type:this.$route.name === 'order' ? 'o' : 'c', state: Number(this.$route.params.type)+1}
+      this.getListObjHandle(params)
     },
     methods: {
-      ...mapActions(['getNumberHandle']),
+      // 获取导航栏数目
+      ...mapActions(['getNumberHandle', 'getListObjHandle']),
       // 弹框显隐
       dialogContractHandle() {
         this.dialogFormVisible = !this.dialogFormVisible

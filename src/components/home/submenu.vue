@@ -1,95 +1,35 @@
 <template>
   <div id="submenu">
     <ul>
-      <li>
-        <a href="#/detail/order/1" :class="$route.path === '/detail/order/1' ? 'active' : ''">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
+      <li v-for="item in getLists">
+        <a :href="'#/detail/order/'+item.Key" :class="$route.path === '/detail/order/'+item.Key ? 'active' : ''">
+          <p class="title">{{item.Record.name}}</p>
           <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
+            <el-col :span="12"><div class="grid-content">项目编号：{{item.Record.code}}</div></el-col>
+            <el-col :span="12"><div class="grid-content">招标编号：{{item.Record.bidcode}}</div></el-col>
           </el-row>
           <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
+            <el-col :span="12"><div class="grid-content">供货方式：{{item.Record.ordermode}}</div></el-col>
             <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
           </el-row>
         </a>
       </li>
-      <li>
-        <a href="#/detail/order/2" :class="$route.path === '/detail/order/2' ? 'active' : ''">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
-          <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
-          </el-row>
-          <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
-            <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
-          </el-row>
-        </a>
-      </li>
-      <li>
-        <a href="#/detail/order/3">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
-          <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
-          </el-row>
-          <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
-            <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
-          </el-row>
-        </a>
-      </li>
-      <li>
-        <a href="#/detail/order/4">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
-          <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
-          </el-row>
-          <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
-            <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
-          </el-row>
-        </a>
-      </li>
-      <li>
-        <a href="#/detail/order/5">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
-          <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
-          </el-row>
-          <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
-            <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
-          </el-row>
-        </a>
-      </li>
-      <li>
-        <a href="#/detail/order/5">
-          <p class="title">中铁三局集团大瑞铁路物资采购合同书</p>
-          <el-row type="flex" class="item-flex" justify="space-between">
-            <el-col :span="12"><div class="grid-content">项目编号：SJDRWZ-2017-1</div></el-col>
-            <el-col :span="12"><div class="grid-content">招标编号：SJDRWZ-2017-1</div></el-col>
-          </el-row>
-          <el-row type="flex" class="item-flex item-gray" justify="space-between">
-            <el-col :span="12"><div class="grid-content">供货方式：零工</div></el-col>
-            <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
-          </el-row>
-        </a>
-      </li>
+
     </ul>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: 'submenus',
     data(){
       return {
 
       }
+    },
+    computed: {
+      ...mapGetters(['getLists'])
     }
   }
 </script>

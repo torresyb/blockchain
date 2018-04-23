@@ -3,7 +3,7 @@
  * @date 2018/4/18
  * @Description: 初始化数据获取
  */
-import getUrl from '../env'
+import {getUrl, getParams} from '../env'
 import http from '../http'
 
 /**
@@ -11,6 +11,12 @@ import http from '../http'
  * @returns {*}
  */
 export function initGetNum () {
-  let _url = getUrl('/index/getlistnumber')
+  let _url = getUrl('/index/queryszs')
+  return http.get(_url)
+}
+
+export function getListObj (params) {
+  let str = getParams(params)
+  let _url = getUrl('/index/query?'+str)
   return http.get(_url)
 }
