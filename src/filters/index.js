@@ -4,10 +4,10 @@
  * @Description: 过滤器
  */
 export function formatMoneyFixedTow (num) {
-  var money = Number(num).toFixed(2);
+  let money = Number(num).toFixed(2);
   if(money == 'NaN') return '0.00';
-  var value =  (money === '0' ? '-' : money.replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g,'$1,'));
-  var xsd= value.toString().split(".");
+  let value =  (money === '0' ? '-' : money.replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g,'$1,'));
+  let xsd= value.toString().split(".");
   if(xsd.length==1){
     value=value.toString()+".00";
     return value;
@@ -21,8 +21,13 @@ export function formatMoneyFixedTow (num) {
 }
 
 export function formatMoney (num) {
-  var money = Number(num).toFixed(0);
+  let money = Number(num).toFixed(0);
   if(money == 'NaN') return '0';
-  var now =  money.replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g,'$1,');
+  let now =  money.replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g,'$1,');
   return  now;
+}
+
+export function timeFormat (time) {
+  let t = global.moment(time).format('YYYY-MM-DD')
+  return t
 }

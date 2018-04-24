@@ -13,7 +13,7 @@
         <el-submenu index="/order/o/0">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span>订单列表</span>
+            <span>采购订单列表</span>
           </template>
           <el-menu-item index="/order/o/0">
             <span slot="title">未确认订单 <i class="badge">{{getNums['o1']}}</i></span>
@@ -25,7 +25,7 @@
         <el-submenu index="/contract/c/0">
           <template slot="title">
             <i class="el-icon-document"></i>
-            <span>合同列表</span>
+            <span>贸易合同列表</span>
           </template>
           <el-menu-item index="/contract/c/0">
             <span slot="title">未确认合同 <i class="badge">{{getNums['c1']}}</i></span>

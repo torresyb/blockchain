@@ -2,25 +2,25 @@
   <div id="submenu">
     <ul v-if="getLists.length>0">
       <li v-for="item in getLists" :key="item.key">
-        <a :href="'#/detail/'+ $route.params.oc +'/'+$route.params.type+'/'+item.Key" :class="$route.params.id == item.Key ? 'active' : ''">
+        <a :href="'#/detail/'+ $route.params.oc +'/'+$route.params.type+'/'+encodeURIComponent(item.Key)" :class="$route.params.id == item.Key ? 'active' : ''">
           <p class="title">{{item.Record.name}}</p>
           <el-row type="flex" class="item-flex" justify="space-between">
             <template v-if="$route.params.oc == 'c'">
-              <el-col :span="12"><div class="grid-content">项目编号：{{item.Record.code.length>12 ? item.Record.code.substring(0,12)+'...' : item.Record.code}}</div></el-col>
-              <el-col :span="12"><div class="grid-content">招标编号：{{item.Record.bidcode.length>12 ? item.Record.bidcode.substring(0,12)+'...' : item.Record.bidcode}}</div></el-col>
+              <el-col :span="12"><div class="grid-content">项目编号：{{item.Record.code && item.Record.code.length>12 ? item.Record.code.substring(0,12)+'...' : item.Record.code}}</div></el-col>
+              <el-col :span="12"><div class="grid-content">招标编号：{{item.Record.bidcode && item.Record.bidcode.length>12 ? item.Record.bidcode.substring(0,12)+'...' : item.Record.bidcode}}</div></el-col>
             </template>
             <template v-else>
-              <el-col :span="12"><div class="grid-content">订单编号：{{item.Record.OrderId.length>12 ? item.Record.OrderId.substring(0,12)+'...' : item.Record.OrderId}}</div></el-col>
-              <el-col :span="12"><div class="grid-content">项目编号：{{item.Record.contractCode.length>12 ? item.Record.contractCode.substring(0,12)+'...' : item.Record.contractCode}}</div></el-col>
+              <el-col :span="12"><div class="grid-content">订单编号：{{item.Record.OrderId && item.Record.OrderId.length>12 ? item.Record.OrderId.substring(0,12)+'...' : item.Record.OrderId}}</div></el-col>
+              <el-col :span="12"><div class="grid-content">项目编号：{{item.Record.contractCode && item.Record.contractCode.length>12 ? item.Record.contractCode.substring(0,12)+'...' : item.Record.contractCode}}</div></el-col>
             </template>
           </el-row>
           <el-row type="flex" class="item-flex item-gray" justify="space-between">
             <template v-if="$route.params.oc == 'c'">
               <el-col :span="12"><div class="grid-content">供货方式：{{item.Record.ordermode}}</div></el-col>
-              <el-col :span="12"><div class="grid-content">日期：2017-03-11 12:37</div></el-col>
+              <el-col :span="12"><div class="grid-content">日期：{{item.Record.time | timeFormat}}</div></el-col>
             </template>
             <template v-else>
-              <el-col :span="12"><div class="grid-content">规格：{{item.Record.spec.length>12 ? item.Record.spec.substring(0,12)+'...' : item.Record.spec}}</div></el-col>
+              <el-col :span="12"><div class="grid-content">规格：{{item.Record.spec && item.Record.spec.length>12 ? item.Record.spec.substring(0,12)+'...' : item.Record.spec}}</div></el-col>
               <el-col :span="12"><div class="grid-content">总计：{{item.Record.total}}</div></el-col>
             </template>
           </el-row>
@@ -42,9 +42,6 @@
     },
     computed: {
       ...mapGetters(['getLists'])
-    },
-    created() {
-      console.log(this.$route)
     }
   }
 </script>

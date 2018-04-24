@@ -125,13 +125,13 @@
     beforeRouteUpdate(to, from, next) {
       if(to.name === 'contract' || to.name === 'order'){
         this.getNumberHandle()
-        this.getListObjHandle({type:to.name === 'order' ? 'o' : 'c', state: Number(to.params.type)+1})
+        this.getListObjHandle({type:to.params.oc === 'o' ? 'o' : 'c', state: Number(to.params.type)+1})
       }
       next()
     },
     mounted() {
       this.getNumberHandle()
-      let params = {type:this.$route.name === 'order' ? 'o' : 'c', state: Number(this.$route.params.type)+1}
+      let params = {type:this.$route.params.oc === 'o' ? 'o' : 'c', state: Number(this.$route.params.type)+1}
       this.getListObjHandle(params)
     },
     methods: {
@@ -153,11 +153,14 @@
                 this.getNumberHandle()
                 this.getListObjHandle({type: 'c', state: 1})
                 this.$message.success("新建合同成功！")
+                this.$router.push({name: 'contract', params:{oc:'c', type:0}})
                 this.$refs['contractForm'].resetFields()
               }
+            }).catch(err => {
+              console.log(err)
+              this.fullscreenLoading = false
             })
           } else {
-            console.log('error submit!!');
             return false;
           }
         })

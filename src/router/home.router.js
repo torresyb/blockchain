@@ -25,6 +25,11 @@ export default [
       path: '/detail/:oc/:type/:id',
       component: Detail,
       name: 'detail',
+      meta: {keepAlive: false}
+    },{
+      path: '/detail/:oc/:type',
+      component: Index,
+      name: 'empty',
       meta: {keepAlive: true}
     },{
       path: '/',
