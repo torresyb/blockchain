@@ -1,3 +1,8 @@
+/**
+ * @author yangbin
+ * @date 18/4/17
+ * @Description: go 接口对接
+ */
 let Fabric_Client = require('fabric-client')
 let path = require('path')
 let util = require('util')

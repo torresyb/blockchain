@@ -1,3 +1,8 @@
+/**
+ * @author yangbin
+ * @date 18/4/17
+ * @Description: RESTFUL 订单
+ */
 var util = require('util');
 
 let { httpQueryRequest, httpInvokeRequest } = require('../http')

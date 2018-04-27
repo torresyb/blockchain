@@ -1,3 +1,8 @@
+/**
+ * @author yangbin
+ * @date 18/4/17
+ * @Description: RESTful 接口
+ */
 const Router = require('koa-router')
 const router = new Router()
 const initCtr = require('./controller/init')
