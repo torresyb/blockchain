@@ -8,15 +8,14 @@ let fabric_client = new Fabric_Client()
 let channel = fabric_client.newChannel('mychannel')
 let peer = fabric_client.newPeer('grpc://localhost:7051')
 channel.addPeer(peer)
-var order = fabric_client.newOrderer('grpc://localhost:7050')
+let order = fabric_client.newOrderer('grpc://localhost:7050')
 channel.addOrderer(order);
 
 let member_user = null
 let store_path = path.join(__dirname, 'hfc-key-store')
-var tx_id = null
+let tx_id = null
 
 function httpQueryRequest (params) {
-    console.log(params)
   return Fabric_Client.newDefaultKeyValueStore({ path: store_path}).then(state_store => {
     fabric_client.setStateStore(state_store)
     let crypto_suite = Fabric_Client.newCryptoSuite()
@@ -68,8 +67,8 @@ function httpInvokeRequest (params) {
 
     return channel.sendTransactionProposal(params);
   }).then((results) => {
-        var proposalResponses = results[0];
-        var proposal = results[1];
+        let proposalResponses = results[0];
+        let proposal = results[1];
         let isProposalGood = false;
         if (proposalResponses && proposalResponses[0].response &&
             proposalResponses[0].response.status === 200) {
@@ -84,7 +83,7 @@ function httpInvokeRequest (params) {
                 proposalResponses[0].response.status, proposalResponses[0].response.message));
 
             // build up the request for the orderer to have the transaction committed
-            var request = {
+            let request = {
                 proposalResponses: proposalResponses,
                 proposal: proposal
             };
@@ -92,10 +91,10 @@ function httpInvokeRequest (params) {
             // set the transaction listener and set a timeout of 30 sec
             // if the transaction did not get committed within the timeout period,
             // report a TIMEOUT status
-            var transaction_id_string = tx_id.getTransactionID(); //Get the transaction ID string to be used by the event processing
-            var promises = [];
+            let transaction_id_string = tx_id.getTransactionID(); //Get the transaction ID string to be used by the event processing
+            let promises = [];
 
-            var sendPromise = channel.sendTransaction(request);
+            let sendPromise = channel.sendTransaction(request);
             promises.push(sendPromise); //we want the send transaction first, so that we know where to check status
 
             // get an eventhub once the fabric client has a user assigned. The user
@@ -113,14 +112,12 @@ function httpInvokeRequest (params) {
                 }, 3000);
                 event_hub.connect();
                 event_hub.registerTxEvent(transaction_id_string, (tx, code) => {
-                    // this is the callback for transaction event status
-                    // first some clean up of event listener
                     clearTimeout(handle);
                     event_hub.unregisterTxEvent(transaction_id_string);
                     event_hub.disconnect();
 
                     // now let the application know what happened
-                    var return_status = { event_status: code, tx_id: transaction_id_string };
+                    let return_status = { event_status: code, tx_id: transaction_id_string };
                     if (code !== 'VALID') {
                         console.error('The transaction was invalid, code = ' + code);
                         resolve(return_status); // we could use reject(new Error('Problem with the tranaction, event status ::'+code));
